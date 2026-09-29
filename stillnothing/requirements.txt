@@ -1,0 +1,38 @@
+# Core Framework
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.7
+Flask-JWT-Extended==4.6.0
+Flask-Bcrypt==1.0.1
+Flask-CORS==4.0.1
+Flask-Limiter==3.7.0
+
+# Database
+PyMySQL==1.1.1
+cryptography==42.0.8
+
+# Environment
+python-dotenv==1.0.1
+
+# PDF Generation
+reportlab==4.2.2
+
+# Excel Import/Export
+openpyxl==3.1.5
+
+# QR Code Generation
+qrcode==7.4.2
+Pillow==10.4.0
+
+# Utilities
+email-validator==2.2.0
+phonenumbers==8.13.43
+
+# Production Server
+gunicorn==22.0.0
+
+# Caching
+cachetools==5.4.0
+
+# Rate Limiting Storage
+redis==5.0.8

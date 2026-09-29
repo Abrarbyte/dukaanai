@@ -1,0 +1,36 @@
+# Flutter SDK checkout — not project code
+flutter/
+
+# Secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+
+# Local database / instance data
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads
+uploads/
+
+# Flutter / Dart build output
+flutter_app/build/
+flutter_app/.dart_tool/
+flutter_app/.flutter-plugins*
+flutter_app/android/.gradle/
+flutter_app/ios/Pods/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

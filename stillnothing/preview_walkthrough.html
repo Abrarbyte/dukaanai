@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StillNothing — Short Walkthrough Preview</title>
+<style>
+  :root{
+    --bg:#07111f;
+    --bg2:#0d1b33;
+    --panel:rgba(10,18,32,.72);
+    --panel2:rgba(17,29,52,.9);
+    --line:rgba(148,163,184,.16);
+    --text:#e8eefc;
+    --muted:#8ea0c6;
+    --accent:#7cdbff;
+    --accent2:#a78bfa;
+    --good:#66f2a7;
+    --shadow:0 24px 70px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(124,219,255,.18), transparent 24%),
+      radial-gradient(circle at 80% 20%, rgba(167,139,250,.14), transparent 20%),
+      linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
+    overflow:hidden;
+  }
+  .wrap{
+    min-height:100%;
+    display:grid;
+    place-items:center;
+    padding:24px;
+  }
+  .frame{
+    width:min(1180px, 100%);
+    border:1px solid var(--line);
+    border-radius:28px;
+    background:linear-gradient(180deg, rgba(17,29,52,.88), rgba(7,17,31,.84));
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .frame::before{
+    content:"";
+    position:absolute;
+    inset:auto -10% -30% auto;
+    width:360px;
+    height:360px;
+    background:radial-gradient(circle, rgba(124,219,255,.14), transparent 62%);
+    pointer-events:none;
+  }
+  .chrome{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 18px;
+    background:rgba(7,17,31,.8);
+    border-bottom:1px solid var(--line);
+  }
+  .dots{display:flex; gap:8px}
+  .dots span{width:12px; height:12px; border-radius:999px; background:#ff5f57}
+  .dots span:nth-child(2){background:#febc2e}
+  .dots span:nth-child(3){background:#28c840}
+  .address{
+    flex:1;
+    margin-left:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(148,163,184,.08);
+    color:#cfe0ff;
+    font-size:13px;
+    border:1px solid rgba(148,163,184,.12);
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  .badge{
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#06111f;
+    background:linear-gradient(135deg, var(--accent), var(--good));
+    font-weight:700;
+  }
+  .content{
+    display:grid;
+    grid-template-columns: 1.55fr .95fr;
+    gap:24px;
+    padding:26px;
+  }
+  .hero{
+    min-height:680px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:linear-gradient(180deg, rgba(12,22,41,.88), rgba(9,18,34,.96));
+    padding:26px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(115deg, transparent 0 42%, rgba(124,219,255,.08) 48%, transparent 54%),
+      linear-gradient(0deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+    pointer-events:none;
+  }
+  .hero-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+  }
+  .eyebrow{
+    color:var(--accent);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    margin-bottom:12px;
+  }
+  h1{
+    margin:0;
+    font-size:clamp(38px, 5vw, 72px);
+    line-height:.94;
+    max-width:9ch;
+  }
+  .sub{
+    max-width:560px;
+    color:var(--muted);
+    line-height:1.75;
+    margin-top:16px;
+    font-size:16px;
+  }
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+  .btn{
+    padding:12px 16px;
+    border-radius:14px;
+    border:1px solid rgba(148,163,184,.16);
+    background:rgba(148,163,184,.08);
+    color:var(--text);
+    font-weight:600;
+    font-size:14px;
+  }
+  .btn.primary{
+    color:#06111f;
+    border:none;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+  }
+  .scene-card{
+    margin-top:24px;
+    border-radius:22px;
+    border:1px solid rgba(148,163,184,.16);
+    background:linear-gradient(180deg, rgba(17,29,52,.84), rgba(8,16,30,.98));
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+  }
+  .scene-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:16px 18px;
+    border-bottom:1px solid rgba(148,163,184,.12);
+    color:#dbe7ff;
+  }
+  .scene-title{font-size:13px; letter-spacing:.15em; text-transform:uppercase}
+  .scene-progress{
+    height:3px;
+    background:rgba(148,163,184,.12);
+    border-radius:999px;
+    overflow:hidden;
+    width:220px;
+  }
+  .scene-progress span{
+    display:block;
+    height:100%;
+    width:25%;
+    background:linear-gradient(90deg, var(--accent), var(--good));
+    animation: load 11s linear infinite;
+  }
+  @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
+  .scene-body{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:18px;
+    padding:18px;
+  }
+  .panel{
+    min-height:320px;
+    border-radius:18px;
+    background:var(--panel);
+    border:1px solid rgba(148,163,184,.14);
+    padding:18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:"";
+    position:absolute;
+    inset:auto -10% -25% auto;
+    width:220px;
+    height:220px;
+    background:radial-gradient(circle, rgba(124,219,255,.13), transparent 65%);
+  }
+  .metric-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:14px;
+  }
+  .metric, .feed-item, .tile{
+    border-radius:16px;
+    border:1px solid rgba(148,163,184,.14);
+    background:rgba(255,255,255,.03);
+  }
+  .metric{
+    padding:16px;
+    min-height:110px;
+  }
+  .metric strong{display:block; font-size:28px; margin-top:8px}
+  .metric span{color:var(--muted); font-size:13px}
+  .stack{display:grid; gap:14px}
+  .feed-item{padding:14px 14px 14px 16px}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    background:rgba(124,219,255,.09);
+    color:#c5f2ff;
+    margin-bottom:12px;
+  }
+  .feed-item p{margin:0; color:#dbe7ff; line-height:1.6}
+  .right{
+    display:grid;
+    gap:18px;
+  }
+  .timeline{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(17,29,52,.82), rgba(10,18,32,.88));
+    border-radius:24px;
+    padding:20px;
+    overflow:hidden;
+  }
+  .timeline h2, .scene-caption h3{
+    margin:0 0 10px;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:#dbe7ff;
+  }
+  .steps{display:grid; gap:12px; margin-top:16px}
+  .step{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px;
+    border-radius:16px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(148,163,184,.12);
+    opacity:.45;
+    transform:translateX(8px);
+    transition:opacity .45s ease, transform .45s ease, border-color .45s ease, background .45s ease;
+  }
+  .step .dot{
+    width:12px; height:12px; border-radius:999px;
+    margin-top:4px;
+    background:rgba(124,219,255,.25);
+    box-shadow:0 0 0 6px rgba(124,219,255,.08);
+    flex:0 0 auto;
+  }
+  .step.active{
+    opacity:1;
+    transform:translateX(0);
+    border-color:rgba(124,219,255,.28);
+    background:rgba(124,219,255,.06);
+  }
+  .step.active .dot{background:linear-gradient(135deg, var(--accent), var(--good))}
+  .step strong{display:block; margin-bottom:4px; font-size:14px}
+  .step span{display:block; color:var(--muted); line-height:1.5; font-size:13px}
+  .scene-caption{
+    margin-top:18px;
+    border-top:1px solid rgba(148,163,184,.12);
+    padding-top:16px;
+    color:var(--muted);
+  }
+  .scene-caption p{margin:0; line-height:1.7}
+  .replay{
+    margin-top:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text);
+    cursor:pointer;
+    user-select:none;
+    font-size:14px;
+  }
+  .replay b{color:var(--accent)}
+  .cursor{
+    position:fixed;
+    width:22px;
+    height:22px;
+    border:2px solid rgba(124,219,255,.8);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    z-index:999;
+    mix-blend-mode:screen;
+    filter:drop-shadow(0 0 12px rgba(124,219,255,.3));
+    animation: drift 11s ease-in-out infinite;
+  }
+  .cursor::after{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    background:rgba(124,219,255,.85);
+    box-shadow:0 0 20px rgba(124,219,255,.35);
+  }
+  @keyframes drift{
+    0%{left:18%; top:24%}
+    20%{left:43%; top:30%}
+    40%{left:67%; top:46%}
+    60%{left:36%; top:68%}
+    80%{left:76%; top:60%}
+    100%{left:18%; top:24%}
+  }
+  .scene{display:none; animation:fade .65s ease both}
+  .scene.active{display:block}
+  @keyframes fade{
+    from{opacity:0; transform:translateY(10px) scale(.985)}
+    to{opacity:1; transform:none}
+  }
+  .bars{display:grid; gap:10px; margin-top:12px}
+  .bar{height:10px; border-radius:999px; background:rgba(148,163,184,.1); overflow:hidden}
+  .bar i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--accent), var(--accent2)); width:var(--w)}
+  .table{
+    display:grid;
+    gap:10px;
+    margin-top:14px;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1.2fr .8fr .7fr;
+    gap:10px;
+    align-items:center;
+    padding:12px 14px;
+    border-radius:14px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(148,163,184,.12);
+  }
+  .row b{font-size:14px}
+  .row span{font-size:12px; color:var(--muted)}
+  .tag{
+    justify-self:end;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    background:rgba(102,242,167,.12);
+    color:#9ff8c1;
+  }
+  .footer-note{
+    position:absolute;
+    left:26px;
+    right:26px;
+    bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .footer-note strong{color:var(--text); letter-spacing:.1em}
+  @media (max-width: 980px){
+    body{overflow:auto}
+    .content{grid-template-columns:1fr}
+    .hero{min-height:auto}
+    .scene-body{grid-template-columns:1fr}
+    .footer-note{position:static; margin-top:18px; flex-wrap:wrap}
+  }
+</style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="wrap">
+    <main class="frame" aria-label="Short animated walkthrough preview">
+      <div class="chrome">
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="address">stillnothing / short animated walkthrough preview</div>
+        <div class="badge">Auto-playing</div>
+      </div>
+
+      <section class="content">
+        <article class="hero">
+          <div class="hero-top">
+            <div>
+              <div class="eyebrow">Preview walkthrough</div>
+              <h1>StillNothing in motion.</h1>
+              <p class="sub">A compact animated preview that steps through the app journey: opening the dashboard, checking products, logging a sale, and reviewing reports — all in one short, polished sequence.</p>
+              <div class="cta-row">
+                <div class="btn primary" id="replayTop">Replay animation</div>
+                <div class="btn">Built for a quick demo</div>
+              </div>
+            </div>
+            <div class="panel" style="min-height:auto; width:min(250px, 100%); padding:16px;">
+              <div class="pill">Live status</div>
+              <div style="font-size:34px; font-weight:800; margin-bottom:4px;">98%</div>
+              <div style="color:var(--muted); line-height:1.6;">Ready for a fast walkthrough preview with subtle motion and scene transitions.</div>
+              <div class="bars">
+                <div class="bar"><i style="--w:92%"></i></div>
+                <div class="bar"><i style="--w:76%"></i></div>
+                <div class="bar"><i style="--w:84%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scene-card">
+            <div class="scene-head">
+              <div class="scene-title" id="sceneTitle">Scene 1 — Dashboard</div>
+              <div class="scene-progress"><span></span></div>
+            </div>
+
+            <div class="scene-body">
+              <div class="panel">
+                <div class="scene active" data-scene="0">
+                  <div class="pill">1 · Dashboard</div>
+                  <div class="metric-grid">
+                    <div class="metric"><span>Revenue</span><strong>₹1.24L</strong><span>+18% this week</span></div>
+                    <div class="metric"><span>Orders</span><strong>428</strong><span>+34 new today</span></div>
+                    <div class="metric"><span>Low stock</span><strong>07</strong><span>Needs attention</span></div>
+                    <div class="metric"><span>Customers</span><strong>1.8K</strong><span>Returning users</span></div>
+                  </div>
+                </div>
+
+                <div class="scene" data-scene="1">
+                  <div class="pill">2 · Products</div>
+                  <div class="table">
+                    <div class="row"><div><b>Classic Shirt</b><br><span>Category: Apparels</span></div><div><b>₹1,299</b><br><span>Margin: 42%</span></div><div class="tag">In stock</div></div>
+                    <div class="row"><div><b>Denim Jacket</b><br><span>Category: Apparels</span></div><div><b>₹2,499</b><br><span>Margin: 38%</span></div><div class="tag">Low</div></div>
+                    <div class="row"><div><b>Leather Belt</b><br><span>Category: Accessories</span></div><div><b>₹699</b><br><span>Margin: 51%</span></div><div class="tag">Hot</div></div>
+                  </div>
+                </div>
+
+                <div class="scene" data-scene="2">
+                  <div class="pill">3 · Quick Sale</div>
+                  <div class="stack">
+                    <div class="feed-item"><div class="pill">Invoice #2048</div><p>Customer selected 2 items, applied a discount, and completed payment in seconds.</p></div>
+                    <div class="feed-item"><div class="pill">Checkout flow</div><p>Fast billing, clean receipt, and instant stock adjustment — the whole process stays smooth.</p></div>
+                  </div>
+                </div>
+
+                <div class="scene" data-scene="3">
+                  <div class="pill">4 · Reports</div>
+                  <div class="stack">
+                    <div class="feed-item"><div class="pill">Weekly growth</div><p>Revenue climbed steadily across the week, with the strongest bump on the weekend.</p></div>
+                    <div class="feed-item"><div class="pill">Insights</div><p>Best-selling products and low-stock alerts are surfaced together for fast decisions.</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="pill">Walkthrough timeline</div>
+                <div class="stack steps" id="steps">
+                  <div class="step active"><div class="dot"></div><div><strong>Open dashboard</strong><span>The preview starts with the main summary view and key business numbers.</span></div></div>
+                  <div class="step"><div class="dot"></div><div><strong>Review products</strong><span>Cards slide in to show stock, pricing, and category details.</span></div></div>
+                  <div class="step"><div class="dot"></div><div><strong>Record a sale</strong><span>The flow shifts into a quick checkout scene with simple status feedback.</span></div></div>
+                  <div class="step"><div class="dot"></div><div><strong>Check reports</strong><span>Animated highlights finish with weekly performance and insights.</span></div></div>
+                </div>
+
+                <div class="scene-caption">
+                  <h3>Short preview loop</h3>
+                  <p>This page runs a compact walkthrough automatically, so it feels like a mini product demo instead of a static screenshot.</p>
+                  <div class="replay" id="replayBottom"><b>↻</b> Replay from start</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-note">
+            <strong>StillNothing preview</strong>
+            <span>Auto-advances every few seconds • made for quick sharing</span>
+          </div>
+        </article>
+
+        <aside class="right">
+          <section class="timeline">
+            <h2>Scene order</h2>
+            <div class="steps" id="miniSteps">
+              <div class="step active"><div class="dot"></div><div><strong>Dashboard</strong><span>Snapshot of the app overview.</span></div></div>
+              <div class="step"><div class="dot"></div><div><strong>Products</strong><span>Merchandise and inventory view.</span></div></div>
+              <div class="step"><div class="dot"></div><div><strong>Sale</strong><span>Fast billing and checkout.</span></div></div>
+              <div class="step"><div class="dot"></div><div><strong>Reports</strong><span>Performance and insight summary.</span></div></div>
+            </div>
+          </section>
+
+          <section class="timeline">
+            <h2>Preview settings</h2>
+            <div style="display:grid; gap:12px; color:var(--muted); line-height:1.7; font-size:14px;">
+              <div class="feed-item"><div class="pill">Duration</div><p>About 11 seconds per loop.</p></div>
+              <div class="feed-item"><div class="pill">Style</div><p>Soft glow, sliding panels, and a moving pointer.</p></div>
+              <div class="feed-item"><div class="pill">Use case</div><p>Good for sharing a short animated walkthrough of the page.</p></div>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+<script>
+  const scenes = [...document.querySelectorAll('.scene')];
+  const steps = [...document.querySelectorAll('#steps .step')];
+  const miniSteps = [...document.querySelectorAll('#miniSteps .step')];
+  const sceneTitle = document.getElementById('sceneTitle');
+  const titles = ['Scene 1 — Dashboard', 'Scene 2 — Products', 'Scene 3 — Sale', 'Scene 4 — Reports'];
+  let current = 0;
+  let timer = null;
+
+  function activate(index){
+    current = index;
+    scenes.forEach((scene, i) => scene.classList.toggle('active', i === index));
+    steps.forEach((step, i) => step.classList.toggle('active', i === index));
+    miniSteps.forEach((step, i) => step.classList.toggle('active', i === index));
+    sceneTitle.textContent = titles[index];
+  }
+
+  function start(){
+    clearInterval(timer);
+    activate(0);
+    timer = setInterval(() => {
+      current = (current + 1) % scenes.length;
+      activate(current);
+    }, 2800);
+  }
+
+  document.getElementById('replayTop').addEventListener('click', start);
+  document.getElementById('replayBottom').addEventListener('click', start);
+  document.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() === 'r') start();
+  });
+
+  start();
+</script>
+</body>
+</html>
